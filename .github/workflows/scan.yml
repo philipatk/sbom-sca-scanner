@@ -1,4 +1,4 @@
-name: ollama/SCA Scout
+name: akita/SCA Scout
 
 on:
   workflow_dispatch:
@@ -36,15 +36,15 @@ jobs:
           image: ${{ github.event.inputs.docker_image }}
           exit-code: false
           sarif-file: sca_scout.sarif
-          output: ollama.spdx.json
+          output: akita.spdx.json
           format: spdx
           max-locations: 10000  # Limit related locations to meet GitHub's threshold
 
-      - name: Upload ollama file as an artifact
+      - name: Upload akita file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ollama.spdx.json
-          path: ollama.spdx.json
+          name: akita.spdx.json
+          path: akita.spdx.json
 
       - name: Upload SARIF file as an artifact
         uses: actions/upload-artifact@v4
@@ -58,5 +58,5 @@ jobs:
           sarif_file: sca_scout.sarif
           category: Security/SCA
 
-      - name: Ollama upload
+      - name: akita upload
         uses: advanced-security/spdx-dependency-submission-action@v0.1.1
