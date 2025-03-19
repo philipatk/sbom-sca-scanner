@@ -1,6 +1,4 @@
-## Scan a docker image -> get a SARIF/PHP report
-
-name: PHP/SCA Scout
+name: ollama/SCA Scout
 
 on:
   workflow_dispatch:
@@ -8,7 +6,7 @@ on:
         docker_image:
           description: 'The Docker image to scan'
           required: true
-          default: 'akitasoftware/akita-docker-extension:latest'
+          default: 'ollama/ollama'
 
 # env:
 #   REGISTRY: ghcr.io
@@ -49,19 +47,18 @@ jobs:
         with:
           command: cves,recommendations,compare,sbom
           image: ${{ github.event.inputs.docker_image }}
-          only-severities: critical,high # only show critical and high CVEs
+          #only-severities: critical,high # only show critical and high CVEs
           #only-fixed: true # filter to fixed CVEs
-          max-locations: 1000
           exit-code: false  # fail or not based on CVEs found?
           sarif-file: sca_scout.sarif
-          output: PHP_scout.spdx.json
+          output: ollama.spdx.json
           format: spdx
 
-      - name: Upload SBOM file as an artifact
+      - name: Upload ollama file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PHP_scout.spdx.json
-          path: PHP_scout.spdx.json
+          name: ollama.spdx.json
+          path: ollama.spdx.json
 
       - name: Upload SARIF file as an artifact
         uses: actions/upload-artifact@v4
@@ -76,5 +73,5 @@ jobs:
           sarif_file: sca_scout.sarif
           category: Security/SCA
 
-      - name: PHP upload
+      - name: Ollama upload
         uses: advanced-security/spdx-dependency-submission-action@v0.1.1
