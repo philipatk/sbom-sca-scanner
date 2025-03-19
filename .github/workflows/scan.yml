@@ -6,7 +6,7 @@ on:
       docker_image:
         description: 'The Docker image to scan'
         required: true
-        default: 'ollama/ollama'
+        default: 'akitasoftware/akita-docker-extension:latest'
 
 jobs:
   scout:
