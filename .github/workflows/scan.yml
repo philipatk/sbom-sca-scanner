@@ -38,7 +38,7 @@ jobs:
           sarif-file: sca_scout.sarif
           output: ollama.spdx.json
           format: spdx
-          max-locations: 1000  # Limit related locations to meet GitHub's threshold
+          max-locations: 10000  # Limit related locations to meet GitHub's threshold
 
       - name: Upload ollama file as an artifact
         uses: actions/upload-artifact@v4
