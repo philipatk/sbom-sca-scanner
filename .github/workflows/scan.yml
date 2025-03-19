@@ -1,6 +1,6 @@
-## Scan a docker image -> get a SARIF/SBOM report
+## Scan a docker image -> get a SARIF/PHP report
 
-name: SBOM/SCA Scout
+name: PHP/SCA Scout
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         docker_image:
           description: 'The Docker image to scan'
           required: true
-          default: 'appsecco/dvna:sqlite'
+          default: 'php:latest'
 
 # env:
 #   REGISTRY: ghcr.io
@@ -53,14 +53,14 @@ jobs:
           #only-fixed: true # filter to fixed CVEs
           exit-code: false  # fail or not based on CVEs found?
           sarif-file: sca_scout.sarif
-          output: sbom_scout.spdx.json
+          output: PHP_scout.spdx.json
           format: spdx
 
       - name: Upload SBOM file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sbom_scout.spdx.json
-          path: sbom_scout.spdx.json
+          name: PHP_scout.spdx.json
+          path: PHP_scout.spdx.json
 
       - name: Upload SARIF file as an artifact
         uses: actions/upload-artifact@v4
@@ -75,5 +75,5 @@ jobs:
           sarif_file: sca_scout.sarif
           category: Security/SCA
 
-      - name: SBOM upload
+      - name: PHP upload
         uses: advanced-security/spdx-dependency-submission-action@v0.1.1
